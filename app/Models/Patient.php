@@ -15,4 +15,9 @@ class Patient extends Model
         'email',
         'phone',
     ];
+
+    public function sesions()
+    {
+        return $this->hasMany(Sesion::class);
+    }
 }
