@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// * Por trabajar
