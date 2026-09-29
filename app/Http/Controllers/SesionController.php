@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SesionResource;
 use App\Models\Sesion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SesionController extends Controller
 {
@@ -12,7 +14,8 @@ class SesionController extends Controller
      */
     public function index()
     {
-        //
+        Gate::authorize("viewAny", Sesion::class);
+        return SesionResource::collection(Sesion::all());
     }
 
     /**

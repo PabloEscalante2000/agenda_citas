@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Sesion;
 use App\Models\User;
+use App\Policies\SesionPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define("admin", fn (User $user) => $user->role === "a");
+        Gate::policy(Sesion::class, SesionPolicy::class);
     }
 }

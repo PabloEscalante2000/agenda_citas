@@ -32,6 +32,9 @@ class User extends Authenticatable
         ];
     }
 
+    public function isAdmin(): bool { return $this->role === 'a'; }
+    public function isTerapeuta(): bool { return $this->role === 't'; }
+
     public function sesions()
     {
         return $this->hasMany(Sesion::class);
