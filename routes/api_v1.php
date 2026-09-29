@@ -11,8 +11,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me',[LoginController::class, 'me']);
 
     // *  Solo administradores
-    Route::middleware('ability:admin')->group(function () {
+    Route::middleware('can:admin')->group(function () {
         Route::apiResource('patients', PatientController::class);
     });
 });
-

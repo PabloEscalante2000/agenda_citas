@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePatientRequest;
+use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Patient;
 use Illuminate\Http\Request;
@@ -19,9 +21,10 @@ class PatientController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePatientRequest $request)
     {
-        //
+        $patient = Patient::create($request->validated());
+        return new PatientResource($patient);
     }
 
     /**
@@ -29,15 +32,16 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        //
+        return new PatientResource($patient);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Patient $patient)
+    public function update(UpdatePatientRequest $request, Patient $patient)
     {
-        //
+        $patient->update($request->validated());
+        return new PatientResource($patient);
     }
 
     /**
@@ -45,6 +49,7 @@ class PatientController extends Controller
      */
     public function destroy(Patient $patient)
     {
-        //
+        $patient->delete();
+        return response()->json(null, 204);
     }
 }
