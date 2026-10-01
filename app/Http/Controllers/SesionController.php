@@ -29,7 +29,6 @@ class SesionController extends Controller
      */
     public function store(StoreSesionRequest $request)
     {
-        Gate::authorize("create", Sesion::class);
         $sesion = Sesion::create($request->validated());
         return new SesionResource($sesion->load("patient"));
     }
@@ -56,6 +55,8 @@ class SesionController extends Controller
      */
     public function destroy(Sesion $sesion)
     {
-        //
+        Gate::authorize("delete", $sesion);
+        $sesion->delete();
+        return response()->json(null, 204);
     }
 }

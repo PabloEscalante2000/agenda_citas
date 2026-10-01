@@ -37,7 +37,7 @@ class SesionPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isTerapeuta();
+        return false;
     }
 
     /**
@@ -45,7 +45,7 @@ class SesionPolicy
      */
     public function update(User $user, Sesion $sesion): bool
     {
-        return $sesion->user_id === $user->id;
+        return false;
     }
 
     /**
@@ -53,6 +53,6 @@ class SesionPolicy
      */
     public function delete(User $user, Sesion $sesion): bool
     {
-        return $sesion->user_id === $user->id;
+        return false;
     }
 }

@@ -28,6 +28,13 @@ class Sesion extends Model
         }
     }
 
+    public function scopeOverLapping(Builder $query, int $userId, $start, $end): Builder
+    {
+        return $query->where("user_id", $userId)
+            ->where("start_time","<=",$end)
+            ->where("end_time",">=",$start);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
