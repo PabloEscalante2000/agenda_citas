@@ -12,10 +12,15 @@ class SesionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         Gate::authorize("viewAny", Sesion::class);
-        return SesionResource::collection(Sesion::all());
+        $sesiones = Sesion::visibleFor($request->user())
+            ->with("patient")
+            ->orderByDesc("start_time")
+            ->paginate(15);
+        
+        return SesionResource::collection($sesiones);
     }
 
     /**
