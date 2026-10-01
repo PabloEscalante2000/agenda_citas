@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSesionRequest;
 use App\Http\Resources\SesionResource;
 use App\Models\Sesion;
 use Illuminate\Http\Request;
@@ -26,9 +27,11 @@ class SesionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSesionRequest $request)
     {
-        //
+        Gate::authorize("create", Sesion::class);
+        $sesion = Sesion::create($request->validated());
+        return new SesionResource($sesion->load("patient"));
     }
 
     /**
@@ -36,7 +39,8 @@ class SesionController extends Controller
      */
     public function show(Sesion $sesion)
     {
-        //
+        Gate::authorize("view", $sesion);
+        return new SesionResource($sesion->load("patient"));
     }
 
     /**
