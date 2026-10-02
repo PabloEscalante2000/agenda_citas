@@ -47,7 +47,8 @@ class UpdateSesionRequest extends FormRequest
                 $solapa = Sesion::overLapping(
                     $this->user_id,
                     $this->start_time,
-                    $this->end_time
+                    $this->end_time,
+                    $this->route("sesion")->id
                 )->exists();
 
                 if($solapa) {

@@ -28,11 +28,12 @@ class Sesion extends Model
         }
     }
 
-    public function scopeOverLapping(Builder $query, int $userId, $start, $end): Builder
+    public function scopeOverLapping(Builder $query, int $userId, $start, $end, ?int $ignoredId = null): Builder
     {
         return $query->where("user_id", $userId)
-            ->where("start_time","<=",$end)
-            ->where("end_time",">=",$start);
+            ->where("start_time","<",$end)
+            ->where("end_time",">",$start)
+            ->when($ignoredId, fn ($q) => $q->whereKeyNot($ignoredId));
     }
 
     public function user()

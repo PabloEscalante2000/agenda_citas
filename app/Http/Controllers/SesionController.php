@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSesionRequest;
+use App\Http\Requests\UpdateSesionRequest;
 use App\Http\Resources\SesionResource;
 use App\Models\Sesion;
 use Illuminate\Http\Request;
@@ -45,9 +46,10 @@ class SesionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sesion $sesion)
+    public function update(UpdateSesionRequest $request, Sesion $sesion)
     {
-        //
+        $sesion->update($request->validated());
+        return new SesionResource($sesion->load("patient"));
     }
 
     /**
