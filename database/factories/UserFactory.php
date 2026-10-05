@@ -34,6 +34,16 @@ class UserFactory extends Factory
         ]; 
     }
 
+    public function admin(): static
+    {
+        return $this->state(["role" => "a"]);
+    }
+
+    public function terapeuta(): static
+    {
+        return $this->state(["role" => "t"]);
+    }
+
     /**
      * Indicate that the model's email address should be unverified.
      */
