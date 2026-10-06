@@ -16,8 +16,18 @@ class Sesion extends Model
         'patient_id',
         'start_time',
         'end_time',
+        'reminder_sent_at',
         'status',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'start_time' => 'datetime',
+            'end_time' => 'datetime',
+            'reminder_sent_at' => 'datetime',
+        ];
+    }
 
     public function scopeVisibleFor(Builder $query, User $user): Builder
     {
